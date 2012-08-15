@@ -1511,8 +1511,8 @@ int main(int argc, char *argv[]) {
                 /* Become reaper of our children */
                 r = prctl(PR_SET_CHILD_SUBREAPER, 1);
                 if (r < 0)
-                        log_error("Failed to prctl(PR_SET_CHILD_SUBREAPER): %s", strerror(-r));
-                if (r == -EINVAL)
+                        log_error("Failed to prctl(PR_SET_CHILD_SUBREAPER): %m");
+                if (r < 0 && errno == EINVAL)
                         log_error("Perhaps the kernel version is too old (< 3.4?)");
         }
 
